@@ -1,4 +1,6 @@
 /*
+ * Author: Ben Burghardt
+ * 
  * Simple doubly linked list node that stores a list of templated values
  *
  * Current implementaion only allows construction with a previous node
