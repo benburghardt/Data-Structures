@@ -16,6 +16,7 @@ using namespace std;
 double time_n_ksorts(vector<int>, int k);
 
 int main (){
+
     srand(time(0));
     rand();
     ofstream data("sortData.csv");

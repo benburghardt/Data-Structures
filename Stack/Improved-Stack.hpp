@@ -18,7 +18,6 @@
 #ifndef IMPROVED_STACK_HPP
 #define IMPROVED_STACK_HPP
 
-#include <cstddef> // for size_t
 #include "Node.hpp"
 
 using namespace std;

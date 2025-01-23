@@ -1,18 +1,9 @@
 /*
- * stack-stage3.h
+ * Author: Ben Burghardt 
  *
- * Implements a simple stack class using dynamic arrays.
- * This may be implemented in 3 stages:
- *   Stage 1: non-template stack class storing strings,
- *            unsafe copies/assignments
- *   Stage 2: template stack class, unsafe copies/assignments
- *   Stage 3: template stack class, safe copies/assignments
+ * Simple templated Stack implementation that uses a dynamic array to store elements
+ * 
  *
- * Note: no underflow detection is performed.  Performing pop() or top()
- * on an empty stack results in undefined behavior (possibly crashing your
- * program)!
- *
- * Author: Your Name
  */
 
 #ifndef NAIVE_STACK_HPP
@@ -20,68 +11,115 @@
 
 #include <cstddef> // for size_t
 
-// using namespace std;
-
-template <typename t>
+template <typename T>
 class NaiveStack {
   public:
-    t top(){
-        if(_size == 0) return NULL;
+    // Simple operations
+    /**
+     * @brief Get next element in the stack
+     */
+    T top();
 
-        return _data[_size - 1];
-    }
+    /**
+     * @brief Add one element to the top of the stack
+     * 
+     * @param element 
+     */
+    void push(const T &element);
 
-    // inline definitions, doing nothing at the moment
-    void push(const t &entry){
-      
+    /**
+     * @brief 
+     */
+    void pop();
 
-            t *temp = new t[_size + 1];
+    // Stack information
+    size_t size();
+    bool is_empty();
 
-            for (size_t i = 0; i < _size; i++){
-                temp[i] = _data[i];
-            }
-            delete[] _data;
-            _data = temp;
-            
-            
-            
-    
-        _data[_size] = entry;
-        _size++;
-    }
-    void pop(){
-        if(_size == 0) return;
+    // Constructors/Destructor
+    NaiveStack();
+    NaiveStack(const NaiveStack<T> &other);
+    ~NaiveStack();
 
-        _size--;
-    }
-    size_t size() { return _size; }
-    bool is_empty() { return (_size == 0) ? true : false; }
-
-    NaiveStack() { _size = 0; _data = new t[1];}
-    NaiveStack(const NaiveStack<t> &other){ deepCopy(this, other); }
-    ~NaiveStack(){ delete[] _data; }
-
-    NaiveStack<t> operator=(const NaiveStack<t> &other){
-        if(&other == this) return *this;
-
-        delete[] this->_data;
-
-        deepCopy(this, other);
-
-        return *this;
-    }
+    // Assignment operator
+    NaiveStack<T> operator=(const NaiveStack<T> &other);
 
   private:
-    t *_data;
+    T *_data;
     size_t _size;
-    void deepCopy(NaiveStack<t> *reciever, const NaiveStack<t> &giver){
-        reciever->_size = giver._size;
-        reciever->_data = new t[_size];
 
-        for(size_t i = 0; i < _size; i++){
-            reciever->_data[i] = giver._data[i];
-        }
-    }
+    void _deepCopy(NaiveStack<T> *reciever, const NaiveStack<T> &giver);
 };
+
+
+template <typename T>
+T NaiveStack<T>::top(){
+    if(_size == 0) return NULL;
+    return _data[_size - 1];
+}
+
+template <typename T>
+void NaiveStack<T>::push(const T &element){
+    // Add enough memory for 1 element
+    T *temp = new T[_size + 1];
+
+    // Deep copy elements
+    for (size_t i = 0; i < _size; i++){
+        temp[i] = _data[i];
+    }
+    delete[] _data;
+    _data = temp;
+
+    // Insert new element
+    _data[_size] = entry;
+    _size++;
+}
+
+template <typename T>
+void NaiveStack<T>::pop(){
+    if(_size == 0) return;
+    _size--;
+}
+
+template <typename T>
+size_t NaiveStack<T>::size() 
+{ return _size; }
+
+template <typename T>
+bool NaiveStack<T>::is_empty() 
+{ return (_size == 0) ? true : false; }
+
+ 
+template <typename T>
+NaiveStack<T>::NaiveStack() 
+{ _size = 0; _data = nullptr;}
+
+template <typename T>
+NaiveStack<T>::NaiveStack(const NaiveStack<T> &other) 
+{ deepCopy(this, other); }
+
+template <typename T>
+NaiveStack<T>::~NaiveStack(){ delete[] _data; }
+
+template <typename T>
+NaiveStack<T> NaiveStack<T>::operator=(const NaiveStack<T> &other){
+    if(&other == this) return *this;
+
+    delete[] this->_data;
+
+    deepCopy(this, other);
+
+    return *this;
+}
+
+template <typename T>
+void NaiveStack<T>::_deepCopy(NaiveStack<T> *reciever, const NaiveStack<T> &giver){
+    reciever->_size = giver._size;
+    reciever->_data = new T[_size];
+
+    for(size_t i = 0; i < _size; i++){
+        reciever->_data[i] = giver._data[i];
+    }
+}
 
 #endif
