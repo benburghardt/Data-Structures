@@ -112,8 +112,8 @@ void ImprovedStack<T>::pop(){
 }
 
 template <typename T>
-size_t ImprovedStack<T>::size() 
-{ return _size; }
+size_t ImprovedStack<T>::size()  // current container size + filled containers
+{ return _size + _data->capacity - 1; }
 
 template <typename T>
 bool ImprovedStack<T>::is_empty() 
