@@ -16,6 +16,8 @@ using namespace std;
 double time_n_ksorts(vector<int>, int k);
 
 int main (){
+    random_device rd;
+    mt19937 mt(rd());
 
     srand(time(0));
     rand();
@@ -81,7 +83,7 @@ int main (){
     return 0;
 }
 
-/*double time_n_pushes(unsigned n) {
+double time_n_pushes(unsigned n) {
     stack<unsigned> s;
 
     // get starting clock value
@@ -96,19 +98,19 @@ int main (){
     // compute elapsed time in seconds
     chrono::duration<double> elapsed = stop_time - start_time;
     return elapsed.count();
-}*/
-
-double time_n_ksorts(vector<int> nums, int k) {
-
-    // get starting clock value
-    auto start_time = chrono::system_clock::now();
-    // do the sort
-    // sorter(nums,k);
-    nums.at(0) += k;
-    // get ending clock value
-    auto stop_time = chrono::system_clock::now();
-
-    // compute elapsed time in seconds
-    chrono::duration<double> elapsed = stop_time - start_time;
-    return elapsed.count();
 }
+
+// double time_n_ksorts(vector<int> nums, int k) {
+
+//     // get starting clock value
+//     auto start_time = chrono::system_clock::now();
+//     // do the sort
+//     // sorter(nums,k);
+//     nums.at(0) += k;
+//     // get ending clock value
+//     auto stop_time = chrono::system_clock::now();
+
+//     // compute elapsed time in seconds
+//     chrono::duration<double> elapsed = stop_time - start_time;
+//     return elapsed.count();
+// }
