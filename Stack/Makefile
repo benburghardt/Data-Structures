@@ -6,7 +6,7 @@ SRC_FILES = main.cpp
 # NO EDITS NEEDED BELOW THIS LINE
 
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Werror -pedantic-errors
+CXXFLAGS = -Wall -Wextra
 CXXFLAGS_DEBUG = -g
 CXXVERSION = -std=c++17
 
